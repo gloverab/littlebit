@@ -10,15 +10,19 @@
     This is an example of how to add features to index.html for only one environment.
     To track JavaScript errors via TrackJS, sign up for a free trial at TrackJS.com and enter your token in /webpack.config.prod.js on line 55.
    -->
+
   <% if (htmlWebpackPlugin.options.trackJSToken) { %>
   <script>window._trackJs = {token: '<%= htmlWebpackPlugin.options.trackJSToken %>'};</script>
+  <script type="text/javascript" src="node_modules/auth0-js/build/auth0.js"></script>
+  <script src="https://cdn.auth0.com/js/lock/10.18.0/lock.min.js"></script>
   <script src="https://d2zah9y47r7bi2.cloudfront.net/releases/current/tracker.js"></script>
   <% } %>
+
   <link href="https://fonts.googleapis.com/css?family=Fira+Sans:300,400,500" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="style.css">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta charset="utf-8"/>
-  <title>Fusion Starter</title>
+  <title>LittleBit - Bitcoin Donation Service</title>
 </head>
 <body>
 <div id="app"></div>

@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { Component } from 'react'
 import {Link} from 'react-router'
 import littleBitLogo from '../../images/little-bit-logo-2-small.png'
 
 const App = (props) => {
+
   return (
     <div>
       <nav className="navbar navbar-default navbar-static-top">
@@ -27,8 +28,8 @@ const App = (props) => {
         {props.children}
       </div>
     </div>
-
   )
+
 }
 
 export default App
