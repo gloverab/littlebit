@@ -1,12 +1,14 @@
 // Set up your root reducer here...
 import { combineReducers } from 'redux';
 import {organizationsReducer, organizationReducer} from './organizationReducers'
-import { reducer as formReducer } from 'redux-form'
 import authReducers from './authReducers'
+import session from './sessionReducers'
+import { reducer as formReducer } from 'redux-form'
 
 export default combineReducers({
   auth: authReducers,
   form: formReducer,
   organizations: organizationsReducer,
-  organization: organizationReducer
+  organization: organizationReducer,
+  session: session
 })

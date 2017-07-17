@@ -1,57 +1,38 @@
 import Axios from 'axios'
 import thunk from 'redux-thunk'
 import * as actionTypes from './actionTypes'
-import {Cookies} from 'react-cookie';
-import { AUTH_USER, AUTH_ERROR, UNAUTH_USER, PROTECTED_TEST } from './actionTypes';
+import sessionApi from '../api/sessionApi'
+import { AUTH_USER, AUTH_ERROR, UNAUTH_USER, PROTECTED_TEST, LOG_IN_SUCCESS } from './actionTypes';
 
+const CLIENT_ROOT_URL = 'http://localhost:3000'
 const API_URL = 'http://localhost:3001/api'
 
-export function errorHandler(dispatch, error, type) {
-  let errorMessage = ''
-
-  if (error) {
-    errorMessage = error.data.error
-  } else if(error.data) {
-    errorMessage = error.data
-  } else {
-    errorMessage = error
-  }
-
-  if (error.status === 401) {
-    dispatch({
-      type: type,
-      payload: "You are not authorized to do this. Please login and try again."
-    })
-    logoutUser()
-  } else {
-    dispatch({
-      type: type,
-      payload: errorMessage
-    })
-  }
+export function loginSuccess() {
+  return {type: actionTypes.LOG_IN_SUCCESS}
 }
 
-export function loginUser({ email, password }) {
+export function logInUser(credentials) {
   return function(dispatch) {
-    Axios.post(`${API_URL}/authenticate`, { email, password })
-    .then(response => {
-      Cookies.save('token', response.data.token, { path: '/' })
-      dispatch({ type: AUTH_USER })
-      window.location.href = CLIENT_ROOT_URL + '/dashboard'
-    })
-    .catch((error) => {
+    return sessionApi.login(credentials).then(response => {
+      sessionStorage.setItem('jwt', response.jwt)
+      dispatch(loginSuccess())
+    }).catch(error => {
       throw(error)
     })
   }
 }
 
+
+
+// THE BEFORE TIMES
+
 export function registerUser({ email, firstName, lastName, password, password_confirmation}) {
   return function(dispatch) {
     Axios.post(`${API_URL}/register`, { email, firstName, lastName, password})
     .then(response => {
-      Cookies.save('token', response.data.auth_token, { path: '/' })
+      window.sessionStorage.setItem("token", response.data.auth_token)
       dispatch({ type: AUTH_USER })
-      window.location.href = CLIENT_ROOT_URL + '/dashboard'
+      window.location.href = CLIENT_ROOT_URL + '/organizations'
     })
     .catch((error) => {
       throw(error)
@@ -65,22 +46,5 @@ export function logoutUser() {
     cookie.remove('token', { path: '/' })
 
     window.location.href = CLIENT_ROOT_URL + '/login'
-  }
-}
-
-export function protectedTest() {
-  return function(dispatch) {
-    Axios.get(`${API_URL}/protected`, {
-      headers: { 'Authorization': cookie.load('token') }
-    })
-    .then(response => {
-      dispatch({
-        type: PROTECTED_TEST,
-        payload: response.data.content
-      })
-    })
-    .catch((error) => {
-      errorHandler(dispatch, error.response, AUTH_ERROR)
-    })
   }
 }

@@ -5,6 +5,7 @@ const INITIAL_STATE = { error: '', message: '', content: '', authenticated: fals
 export default function (state = INITIAL_STATE, action) {
   switch(action.type) {
     case AUTH_USER:
+      debugger
       return {
         ...state,
         error: '',

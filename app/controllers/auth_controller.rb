@@ -1,12 +1,10 @@
-
-
 class AuthController < ApplicationController
 
-  def authenticate
+  def log_in
     # You'll need to implement the below method. It should return the
     # user instance if the username and password are valid.
     # Otherwise return nil.
-    user = User.find_by_credentials(params[:username], params[:password])
+    user = User.find_by_credentials(params)
     if user
       render json: authentication_payload(user)
     else
@@ -35,6 +33,10 @@ class AuthController < ApplicationController
 
   def user_params
     params.permit(:email, :password, :password_confirmation, :firstName, :lastName)
+  end
+
+  def login_params
+    params.permit(:auth[:email, :password])
   end
 end
 

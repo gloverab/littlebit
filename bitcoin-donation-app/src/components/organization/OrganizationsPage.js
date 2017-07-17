@@ -7,8 +7,8 @@ import * as organizationActions from '../../actions/organizationActions'
 
 class OrganizationsPage extends React.Component{
   constructor(props) {
-        super(props)
-    }
+    super(props)
+  }
 
   render() {
     return(

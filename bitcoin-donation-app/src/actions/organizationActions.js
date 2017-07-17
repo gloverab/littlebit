@@ -1,5 +1,6 @@
 import Axios from 'axios'
 import thunk from 'redux-thunk'
+import organizationsApi from '../api/organizationsApi'
 import * as actionTypes from './actionTypes'
 
 const apiUrl = "http://localhost:3001/api/organizations"
@@ -12,22 +13,20 @@ export const fetchOrganizationsSuccess = (organizations) => {
   }
 }
 
-export const requestOrganizations = () => {
-  console.log("Hello")
-}
-
 export const fetchOrganizations = () => {
   return (dispatch) => {
     dispatch({type: "REQUEST_ORGANIZATIONS"})
-    return Axios.get(apiUrl)
+    return organizationsApi.getAllOrganizations()
       .then(response => {
-        dispatch(fetchOrganizationsSuccess(response.data))
+        dispatch(fetchOrganizationsSuccess(response))
       })
       .catch(error =>{
         throw(error)
       })
   }
 }
+
+
 
 export const createOrganizationSuccess = (organization) => {
   return {
