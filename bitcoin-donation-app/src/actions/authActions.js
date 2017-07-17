@@ -13,7 +13,8 @@ export function loginSuccess() {
 
 export function logInUser(credentials) {
   return function(dispatch) {
-    return sessionApi.login(credentials).then(response => {
+    return sessionApi.login(credentials)
+      .then(response => {
       sessionStorage.setItem('jwt', response.jwt)
       dispatch(loginSuccess())
     }).catch(error => {
@@ -22,6 +23,10 @@ export function logInUser(credentials) {
   }
 }
 
+export function logOutUser() {
+  sessionStorage.removeItem('jwt')
+  return {type: actionTypes.LOG_OUT}
+}
 
 
 // THE BEFORE TIMES

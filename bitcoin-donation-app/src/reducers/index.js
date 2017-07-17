@@ -2,7 +2,7 @@
 import { combineReducers } from 'redux';
 import {organizationsReducer, organizationReducer} from './organizationReducers'
 import authReducers from './authReducers'
-import session from './sessionReducers'
+import sessionReducer from './sessionReducers'
 import { reducer as formReducer } from 'redux-form'
 
 export default combineReducers({
@@ -10,5 +10,5 @@ export default combineReducers({
   form: formReducer,
   organizations: organizationsReducer,
   organization: organizationReducer,
-  session: session
+  session: sessionReducer
 })

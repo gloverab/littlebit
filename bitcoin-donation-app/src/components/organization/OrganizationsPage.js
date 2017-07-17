@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux'
 import OrganizationForm from './OrganizationForm'
 import { Link } from 'react-router'
 import * as organizationActions from '../../actions/organizationActions'
+import * as sessionActions from '../../actions/authActions'
 
 class OrganizationsPage extends React.Component{
   constructor(props) {
@@ -35,9 +36,7 @@ class OrganizationsPage extends React.Component{
                 </tr> )}
               </tbody>
             </table>
-
           </div>
-
         </div>
       </div>
     )
@@ -45,16 +44,15 @@ class OrganizationsPage extends React.Component{
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return {
-    organizations: state.organizations
+  if (state.organizations.items.length > 0) {
+    return {
+      organizations: state.organizations
+    }
   }
 }
 
-
 const mapDispatchToProps = (dispatch) => {
-  return{
-    createOrganization: organization => dispatch(organizationActions.createOrganization(organization))
-  }
+  return {actions: bindActionCreators(Object.assign({}, organizationActions, sessionActions), dispatch)}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrganizationsPage)
