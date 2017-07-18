@@ -11,7 +11,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './style.css'
 import configureStore from './store/configureStore'
 
-const store = configureStore()
+export const store = configureStore()
 store.dispatch(organizationActions.fetchOrganizations())
 
 render (

@@ -2,6 +2,7 @@ import Axios from 'axios'
 import thunk from 'redux-thunk'
 import * as actionTypes from './actionTypes'
 import sessionApi from '../api/sessionApi'
+import * as organizationActions from './organizationActions'
 import { AUTH_USER, AUTH_ERROR, UNAUTH_USER, PROTECTED_TEST, LOG_IN_SUCCESS } from './actionTypes';
 
 const CLIENT_ROOT_URL = 'http://localhost:3000'
@@ -16,7 +17,13 @@ export function logInUser(credentials) {
     return sessionApi.login(credentials)
       .then(response => {
       sessionStorage.setItem('jwt', response.jwt)
-      dispatch(loginSuccess())
+      if (sessionStorage.jwt != "undefined") {
+        dispatch(loginSuccess())
+      } else {
+        logOutUser()
+      }
+    }).then(response => {
+      dispatch(organizationActions.fetchOrganizations())
     }).catch(error => {
       throw(error)
     })
@@ -35,21 +42,12 @@ export function registerUser({ email, firstName, lastName, password, password_co
   return function(dispatch) {
     Axios.post(`${API_URL}/register`, { email, firstName, lastName, password})
     .then(response => {
-      window.sessionStorage.setItem("token", response.data.auth_token)
+      window.sessionStorage.setItem("jwt", response.data.auth_token)
       dispatch({ type: AUTH_USER })
       window.location.href = CLIENT_ROOT_URL + '/organizations'
     })
     .catch((error) => {
       throw(error)
     })
-  }
-}
-
-export function logoutUser() {
-  return function (dispatch) {
-    dispatch({ type: UNAUTH_USER} )
-    cookie.remove('token', { path: '/' })
-
-    window.location.href = CLIENT_ROOT_URL + '/login'
   }
 }

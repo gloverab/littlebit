@@ -26,7 +26,24 @@ export const fetchOrganizations = () => {
   }
 }
 
+export const fetchOrganizationByIdSuccess = (organization) => {
+  return{
+    type: actionTypes.FETCH_ORGANIZATION_BY_ID_SUCCESS,
+    organization
+  }
+}
 
+export const fetchOrganizationById = (organizationId) => {
+  return (dispatch) => {
+    return organizationsApi.showOrganization(organizationId)
+    .then(response => {
+        dispatch(fetchOrganizationByIdSuccess(response))
+      })
+      .catch(error => {
+        throw(error)
+      })
+  }
+}
 
 export const createOrganizationSuccess = (organization) => {
   return {
@@ -45,25 +62,6 @@ export const createOrganization = (organization) => {
       })
       .then(reply => {
         return dispatch(createOrganizationSuccess(reply.data))
-      })
-      .catch(error => {
-        throw(error)
-      })
-  }
-}
-
-export const fetchOrganizationByIdSuccess = (organization) => {
-  return{
-    type: actionTypes.FETCH_ORGANIZATION_BY_ID_SUCCESS,
-    organization
-  }
-}
-
-export const fetchOrganizationById = (organizationId) => {
-  return (dispatch) => {
-    return Axios.get(apiUrl + '/' + organizationId)
-      .then(response => {
-        dispatch(fetchOrganizationByIdSuccess(response.data))
       })
       .catch(error => {
         throw(error)
