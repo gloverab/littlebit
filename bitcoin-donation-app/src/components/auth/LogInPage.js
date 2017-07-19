@@ -29,27 +29,32 @@ class LogInPage extends React.Component {
   render() {
     return (
       <div>
-        <h1>Hello World!</h1>
-        <form>
-          <TextInput
-            name="email"
-            label="email"
-            value={this.state.credentials.email}
-            onChange={this.onChange}/>
+        <div className="container">
 
-          <TextInput
-            name="password"
-            label="password"
-            type="password"
-            value={this.state.credentials.password}
-            onChange={this.onChange}/>
+          <div className="col-md-6">
+            <h1>Log in</h1>
+            <form>
+              <TextInput
+                name="email"
+                label="email"
+                value={this.state.credentials.email}
+                onChange={this.onChange}/>
 
-          <input
-            type="submit"
-            className="btn btn-primary"
-            onClick={this.onSave}/>
-            {" "}
-        </form>
+              <TextInput
+                name="password"
+                label="password"
+                type="password"
+                value={this.state.credentials.password}
+                onChange={this.onChange}/>
+
+              <input
+                type="submit"
+                className="btn btn-primary"
+                onClick={this.onSave}/>
+                {" "}
+            </form>
+          </div>
+        </div>
       </div>
   );
   }

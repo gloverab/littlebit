@@ -1,4 +1,5 @@
 class OrganizationsController < ApplicationController
+  skip_before_action :authenticate, only: [:create]
   before_action :set_organization, only: [:show, :update, :destroy]
 
   def index
@@ -7,8 +8,13 @@ class OrganizationsController < ApplicationController
   end
 
   def create
-    @organization = Organization.create!(organization_params)
-    json_response(@organization)
+    @organization = Organization.new(organization_params)
+    @organization.owner = current_user
+    if @organization.save
+      json_response(@organization)
+    else
+      json_response(params)
+    end
   end
 
   def show
@@ -19,7 +25,7 @@ class OrganizationsController < ApplicationController
   private
 
   def organization_params
-    params.permit(:name, :ein, :firstName, :lastName, :email, :city, :state, :walletAddress)
+    params.require(:organization).permit(:name, :ein, :firstName, :lastName, :email, :city, :state, :walletAddress)
   end
 
   def set_organization

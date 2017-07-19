@@ -1,4 +1,5 @@
 class AuthController < ApplicationController
+  skip_before_action :authenticate
 
   def log_in
     # You'll need to implement the below method. It should return the

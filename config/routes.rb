@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
-  resources :users
   scope '/api' do
     resources :organizations
-    post 'register' => 'auth#register'
-    post 'login', to: "sessions#create"
+    post '/register' => 'auth#register'
+    post '/login', to: "sessions#create"
+
+    resources :users do
+      get 'current_user', to: "users#current"
+    end
   end
 end

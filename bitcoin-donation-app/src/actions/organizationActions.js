@@ -58,10 +58,10 @@ export const createOrganization = (organization) => {
     return Axios.get(newWalletAddressUrl)
       .then(response => {
         organization.walletAddress = response.data.data.address
-        return Axios.post(apiUrl, organization)
+        return organizationsApi.createOrganization(organization)
       })
       .then(reply => {
-        return dispatch(createOrganizationSuccess(reply.data))
+        return dispatch(createOrganizationSuccess(reply))
       })
       .catch(error => {
         throw(error)

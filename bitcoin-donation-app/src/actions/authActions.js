@@ -35,16 +35,16 @@ export function logOutUser() {
   return {type: actionTypes.LOG_OUT}
 }
 
-
 // THE BEFORE TIMES
 
 export function registerUser({ email, firstName, lastName, password, password_confirmation}) {
   return function(dispatch) {
     Axios.post(`${API_URL}/register`, { email, firstName, lastName, password})
     .then(response => {
-      window.sessionStorage.setItem("jwt", response.data.auth_token)
-      dispatch({ type: AUTH_USER })
-      window.location.href = CLIENT_ROOT_URL + '/organizations'
+      sessionStorage.setItem("jwt", response.data.auth_token)
+      dispatch(loginSuccess())
+    }).then(response => {
+      dispatch(organizationActions.fetchOrganizations())
     })
     .catch((error) => {
       throw(error)
