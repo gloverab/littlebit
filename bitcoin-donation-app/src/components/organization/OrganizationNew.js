@@ -6,7 +6,7 @@ import OrganizationForm from './OrganizationForm'
 import * as organizationActions from '../../actions/organizationActions'
 
 class OrganizationNew extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props)
   }
 
@@ -20,7 +20,8 @@ class OrganizationNew extends React.Component {
   render() {
     return(
       <div>
-        {this.props.organizations.isFetching ? <div className="loader">Creating your wallet...</div> : <div></div>}
+        {this.props.organizations.isFetching ?
+          <div className="loading"><div className="loader">Creating your wallet...</div></div> : <div></div>}
         <div className="container">
 
           <div className="row">

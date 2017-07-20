@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import { registerUser } from '../../actions/authActions'
+import FaBeer from '../../../node_modules/react-icons/lib/fa/beer'
 
 const form = reduxForm({
   form: 'register',
@@ -10,7 +11,7 @@ const form = reduxForm({
 
 const renderField = field => (
   <div>
-    <input className="form-control" {...field.input} />
+    <input className="form-control" {...field.input} value={field.thing} placeholder={field.placeholderText} />
     { field.touched && field.error && <div className="error">{field.error}</div> }
   </div>
 )
@@ -33,6 +34,7 @@ function validate(formProps) {
 }
 
 class Register extends Component {
+
   handleFormSubmit(formProps) {
     this.props.registerUser(formProps)
   }
@@ -51,42 +53,40 @@ class Register extends Component {
     const { handleSubmit } = this.props
 
     return (
-      <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-        {this.renderAlert()}
-        <div className="row">
-          <div className="col-md-6">
-            <label>First Name</label>
-            <Field name="firstName" className="form-control" component={renderField} type="text" />
-          </div>
-          <div className="col-md-6">
-            <label>Last Name</label>
-            <Field name="lastName" className="form-control" component={renderField} type="text" />
-          </div>
-        </div>
+      <div className="container">
+        <div className="form-wrapper">
+          <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+            {this.renderAlert()}
+            <div className="row text-center">
+              <div className="col-sm-6 col-centered">
 
-        <div className="row">
-          <div className="col-md-12">
-            <label>Email</label>
-            <Field name="email" className="form-control" component={renderField} type="text" />
-          </div>
+                <Field name="email" className="form-control" component={renderField} thing={this.props.currentUser.email} placeholderText="Email" type="text" />
+
+
+                <Field name="password" className="form-control" component={renderField} placeholderText="Password" type="password" />
+
+
+                <Field name="firstName" className="form-control" component={renderField} placeholderText="First Name" type="text" />
+
+
+                <Field name="lastName" className="form-control" component={renderField} placeholderText="Last Name" type="text" />
+
+                <br />
+                <button type="submit" className="btn btn-primary">Register</button>
+              </div>
+            </div>
+          </form>
         </div>
-        <div className="row">
-          <div className="col-md-6">
-            <label>Password</label>
-            <Field name="password" className="form-control" component={renderField} type="password" />
-          </div>
-        </div>
-        <button type="submit" className="btn btn-primary">Register</button>
-      </form>
+      </div>
     )
   }
 }
 
-function mapStateToProps(state) {
+
+const mapStateToProps = (state, ownProps) => {
   return {
-    errorMessage: state.auth.error,
-    message: state.auth.message
+    currentUser: state.currentUser
   }
 }
 
-export default connect(mapStateToProps, { registerUser })(form(Register))
+export default connect(mapStateToProps, null)(form(Register))

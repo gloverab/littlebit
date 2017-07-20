@@ -17,13 +17,13 @@ export function logInUser(credentials) {
     return sessionApi.login(credentials)
       .then(response => {
       sessionStorage.setItem('jwt', response.jwt)
+      dispatch(organizationActions.fetchOrganizations())
+    }).then(response => {
       if (sessionStorage.jwt != "undefined") {
         dispatch(loginSuccess())
       } else {
         logOutUser()
       }
-    }).then(response => {
-      dispatch(organizationActions.fetchOrganizations())
     }).catch(error => {
       throw(error)
     })
@@ -49,5 +49,18 @@ export function registerUser({ email, firstName, lastName, password, password_co
     .catch((error) => {
       throw(error)
     })
+  }
+}
+
+export function captureEmailSuccess(input) {
+  return {
+    type: actionTypes.CAPTURE_EMAIL_SUCCESS,
+    input
+  }
+}
+
+export function captureEmail(input) {
+  return function(dispatch) {
+    dispatch(captureEmailSuccess(input))
   }
 }

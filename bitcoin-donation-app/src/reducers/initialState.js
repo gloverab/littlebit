@@ -1,4 +1,10 @@
 export default {
+  userEmail: '',
+  currentUser: {
+    email: '',
+    firstName: '',
+    lastName: ''
+  },
   organizations: {
     isFetching: false,
     didInvalidate: false,
