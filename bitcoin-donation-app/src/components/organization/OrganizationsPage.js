@@ -44,6 +44,7 @@ class OrganizationsPage extends React.Component{
 }
 
 const mapStateToProps = (state, ownProps) => {
+  // debugger
   if (state.organizations.items.length > 0) {
     return {
       organizations: state.organizations

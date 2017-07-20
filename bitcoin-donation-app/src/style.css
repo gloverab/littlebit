@@ -6,8 +6,10 @@
   transition: .5s ease
 }
 
-#app nav {
+#app .navbar {
   background-color: #00365B;
+  margin-bottom: 0;
+  border: none;
 }
 
 #app nav a {
@@ -22,12 +24,24 @@
   padding: 0px;
 }
 
+#app .home {
+  /*background-color: blue;*/
+}
+
+#app .hero-text {
+  margin-top: 125px;
+  margin-bottom: 50px;
+}
+
 #app .btn {
   transition: .5s ease;
+  background-color: #337AB7;
+  color: white;
 }
 
 #app .btn:hover {
-  background-color: #FDEAAB;
+  background-color: #00365B;
+  border: 1px solid #337AB7;
 }
 
 #app .navbar-brand>img {
@@ -43,6 +57,16 @@
   width: 100%;
   height: 0;
   padding-top: 20.834%;
+}
+
+#app .email-signup-form {
+  margin: 0 auto;
+  max-width: 350px;
+  padding: 15px 0;
+}
+
+#app .email-signup-input {
+  width: 200px;
 }
 
 .about-img {
@@ -92,15 +116,38 @@
 
 
 
+/*REGISTER STYLES*/
 
+.form-wrapper {
+  margin-top: 25px;
+  max-width: 400px;
+  transition: 0.3s ease;
+}
 
+.form-wrapper:hover {
+  background-color: #d9eaf4;
+}
+
+.form-wrapper form {
+  padding: 25px;
+}
+
+.form-wrapper input:focus {
+  box-shadow: none;
+  border: 1px solid #00365B;
+}
+
+.new-user-photo {
+  padding-top: 25px;
+  width: 50%;
+}
 
 
 
 /*SPINNER STYLES*/
 
 .loading {
-  position: fixed;
+  position: absolute;
   width: 100%;
   height: 200%;
   background-color: white;
@@ -110,7 +157,7 @@
 
 .loader {
   opacity: 0.9;
-  position: absolute;
+  position: fixed;
   margin-left: auto;
   margin-right: auto;
   left: 0;

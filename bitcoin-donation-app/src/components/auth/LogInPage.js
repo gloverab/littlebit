@@ -31,19 +31,19 @@ class LogInPage extends React.Component {
       <div>
         <div className="container">
 
-          <div className="col-md-6">
-            <h1>Log in</h1>
+          <div className="form-wrapper col-centered text-center rounded light-blue-background">
+
             <form>
               <TextInput
                 name="email"
-                label="email"
+                placeholder="Email"
                 value={this.state.credentials.email}
                 onChange={this.onChange}/>
 
               <TextInput
                 name="password"
-                label="password"
                 type="password"
+                placeholder="Password"
                 value={this.state.credentials.password}
                 onChange={this.onChange}/>
 

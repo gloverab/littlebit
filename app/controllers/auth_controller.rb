@@ -16,7 +16,8 @@ class AuthController < ApplicationController
   def register
     user = User.new(user_params)
     if user.save
-      render json: authentication_payload(user)
+      jwt = Auth.issue({user: user.id})
+      render json: {jwt: jwt}
     else
       render json: { errors: ['Something bad.']}
     end
@@ -40,8 +41,6 @@ class AuthController < ApplicationController
     params.permit(:auth[:email, :password])
   end
 end
-
-
 
 
 

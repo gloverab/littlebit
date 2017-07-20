@@ -2,36 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import { registerUser } from '../../actions/authActions'
-import FaBeer from '../../../node_modules/react-icons/lib/fa/beer'
-
-const form = reduxForm({
-  form: 'register',
-  validate
-})
-
-const renderField = field => (
-  <div>
-    <input className="form-control" {...field.input} value={field.thing} placeholder={field.placeholderText} />
-    { field.touched && field.error && <div className="error">{field.error}</div> }
-  </div>
-)
-
-function validate(formProps) {
-  const errors = {}
-  if (!formProps.firstName) {
-    errors.firstName = "Please enter a first name"
-  }
-  if (!formProps.lastName) {
-    errors.firstName = "Please enter a last name"
-  }
-  if (!formProps.email) {
-    errors.email = "Please enter an email"
-  }
-  if (!formProps.password) {
-    errors.password = "Please enter a password"
-  }
-  return errors
-}
+import defaultAvatar from '../../../images/765-default-avatar.png'
 
 class Register extends Component {
 
@@ -50,31 +21,68 @@ class Register extends Component {
   }
 
   render() {
-    const { handleSubmit } = this.props
+    let emailInput, passwordInput, firstNameInput, lastNameInput = null
 
     return (
       <div className="container">
-        <div className="form-wrapper">
-          <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-            {this.renderAlert()}
-            <div className="row text-center">
-              <div className="col-sm-6 col-centered">
+        <div className="form-wrapper col-centered text-center rounded light-blue-background">
 
-                <Field name="email" className="form-control" component={renderField} thing={this.props.currentUser.email} placeholderText="Email" type="text" />
+          <img src={defaultAvatar} alt="New User Photo" className="new-user-photo" />
 
+          <form onSubmit={e => {
+              e.preventDefault()
 
-                <Field name="password" className="form-control" component={renderField} placeholderText="Password" type="password" />
+              var input = {
+                email: emailInput.value,
+                password: passwordInput.value,
+                firstName: firstNameInput.value,
+                lastName: lastNameInput.value
+              }
 
+              this.handleFormSubmit(input)
+              e.target.reset()
+            }}
+          >
 
-                <Field name="firstName" className="form-control" component={renderField} placeholderText="First Name" type="text" />
-
-
-                <Field name="lastName" className="form-control" component={renderField} placeholderText="Last Name" type="text" />
-
-                <br />
-                <button type="submit" className="btn btn-primary">Register</button>
-              </div>
+            <div className="form-group">
+              <input
+                type="text"
+                name="email"
+                placeholder={this.props.currentUser.email || 'Email'}
+                value = {this.props.currentUser.email}
+                onChange={this}
+                ref={node => emailInput = node}
+                className="form-control" />
             </div>
+
+            <div className="form-group">
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                ref={node => passwordInput = node}
+                className="form-control" />
+            </div>
+
+            <div className="form-group">
+              <input
+                type="text"
+                name="firstName"
+                placeholder="First Name"
+                ref={node => firstNameInput = node}
+                className="form-control" />
+            </div>
+
+            <div className="form-group">
+              <input
+                type="text"
+                name="lastName"
+                placeholder="Last Name"
+                ref={node => lastNameInput = node}
+                className="form-control" />
+            </div>
+
+            <input type="submit" className="btn btn-primary" />
           </form>
         </div>
       </div>
@@ -82,11 +90,10 @@ class Register extends Component {
   }
 }
 
-
 const mapStateToProps = (state, ownProps) => {
   return {
     currentUser: state.currentUser
   }
 }
 
-export default connect(mapStateToProps, null)(form(Register))
+export default connect(mapStateToProps, {registerUser})(Register)

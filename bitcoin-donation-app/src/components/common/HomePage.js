@@ -16,17 +16,15 @@ class Home extends React.Component {
 
   render() {
     return(
-      <div>
+      <div className="home">
         <div className="container bottom-60">
-          <h1 className="text-center top-90 bottom-30 letter-space-2">START ACCEPTING BITCOIN AT YOUR ORGANIZATION</h1>
+          <h1 className="text-center top-90 bottom-30 letter-space-2 hero-text">START ACCEPTING BITCOIN AT YOUR ORGANIZATION</h1>
           <div className="row">
             <div className="col-sm-8 col-centered text-center">
               <p className="bottom-60">LittleBit is a project aimed toward helping nonprofits like yours accept and understand Bitcoin. Despite what you may have heard, Bitcoin doesn't need to be complicated! We'll help you set up a wallet and incorporate an easy way to accept donations from otherwise unlikely donors.</p>
-              <div className="col-md-7 col-centered pad-20 light-blue-background rounded">
 
-                <EmailSignupForm handleSubmit={this.handleSubmit.bind(this)} />
+              <EmailSignupForm handleSubmit={this.handleSubmit.bind(this)} />
 
-              </div>
             </div>
           </div>
         </div>

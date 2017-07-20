@@ -94,7 +94,7 @@ const OrganizationForm = (props) => {
 
       <div className="form-group">
         <div className="col-sm-offset-2 col-sm-10">
-          <input type="submit" className="btn btn-default pull-right"/>
+          <input type="submit" className="btn btn-default pull-right" />
         </div>
       </div>
     </form>

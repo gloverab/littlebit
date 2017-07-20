@@ -41,10 +41,11 @@ export function registerUser({ email, firstName, lastName, password, password_co
   return function(dispatch) {
     Axios.post(`${API_URL}/register`, { email, firstName, lastName, password})
     .then(response => {
-      sessionStorage.setItem("jwt", response.data.auth_token)
-      dispatch(loginSuccess())
-    }).then(response => {
+      debugger
+      sessionStorage.setItem("jwt", response.data.jwt)
       dispatch(organizationActions.fetchOrganizations())
+    }).then(response => {
+      dispatch(loginSuccess())
     })
     .catch((error) => {
       throw(error)

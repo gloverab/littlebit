@@ -14,7 +14,7 @@ const EmailSignupForm = (props) => {
         props.handleSubmit(input)
         e.target.reset()
       }}
-      className="form-inline"
+      className="form-inline email-signup-form light-blue-background rounded"
       >
 
       <div className="form-group">
@@ -23,7 +23,7 @@ const EmailSignupForm = (props) => {
             name="email"
             placeholder="Enter Your Email"
             ref={node => emailInput = node}
-            className="form-control mr-10" />
+            className="form-control input-md mr-10 email-signup-input" />
           <input type="submit" value="Get Started" className="btn btn-default" />
       </div>
 
