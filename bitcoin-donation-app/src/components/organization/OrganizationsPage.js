@@ -28,12 +28,12 @@ class OrganizationsPage extends React.Component{
               </thead>
 
               <tbody>
-                {this.props.organizations.items.map((organization, index) => <tr key={index}>
+                {this.props.organizations ? this.props.organizations.items.map((organization, index) => <tr key={index}>
                   <td>{organization.name}</td>
                   <td>{organization.city}</td>
                   <td>{organization.state}</td>
                   <td><Link to={`/organizations/${index+1}`}>View Organization</Link></td>
-                </tr> )}
+                </tr> ) : "Loading"}
               </tbody>
             </table>
           </div>
