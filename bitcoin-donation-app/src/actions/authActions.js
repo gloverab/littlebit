@@ -3,7 +3,7 @@ import thunk from 'redux-thunk'
 import * as actionTypes from './actionTypes'
 import sessionApi from '../api/sessionApi'
 import * as organizationActions from './organizationActions'
-import { AUTH_USER, AUTH_ERROR, UNAUTH_USER, PROTECTED_TEST, LOG_IN_SUCCESS } from './actionTypes';
+import { AUTH_USER, AUTH_ERROR, UNAUTH_USER, PROTECTED_TEST, LOG_IN_SUCCESS, REGISTER_USER_SUCCESS } from './actionTypes';
 
 const CLIENT_ROOT_URL = 'http://localhost:3000'
 const API_URL = 'http://localhost:3001/api'
@@ -37,15 +37,26 @@ export function logOutUser() {
 
 // THE BEFORE TIMES
 
+export function setCurrentUser(user) {
+
+  return {
+    type: actionTypes.SET_CURRENT_USER,
+    payload: user
+  }
+}
+
 export function registerUser({ email, firstName, lastName, password, password_confirmation}) {
   return function(dispatch) {
+
     Axios.post(`${API_URL}/register`, { email, firstName, lastName, password})
     .then(response => {
-      debugger
       sessionStorage.setItem("jwt", response.data.jwt)
       dispatch(organizationActions.fetchOrganizations())
     }).then(response => {
+      debugger
       dispatch(loginSuccess())
+    }).then(response => {
+      dispatch(setCurrentUser())
     })
     .catch((error) => {
       throw(error)

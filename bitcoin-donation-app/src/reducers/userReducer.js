@@ -8,6 +8,9 @@ export default function userReducer(state = initialState.currentUser, action) {
     case actionTypes.CAPTURE_EMAIL_SUCCESS:
       return action.input
 
+    case actionTypes.SET_CURRENT_USER:
+      return action.payload
+
     default:
       return state
   }

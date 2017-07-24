@@ -12,6 +12,7 @@ class OrganizationsPage extends React.Component{
   }
 
   render() {
+
     return(
 
       <div className="container">
@@ -28,12 +29,12 @@ class OrganizationsPage extends React.Component{
               </thead>
 
               <tbody>
-                {this.props.organizations ? this.props.organizations.items.map((organization, index) => <tr key={index}>
+                {this.props.organizations ? this.props.organizations.items.map((organization, index) => <tr key={organization.id}>
                   <td>{organization.name}</td>
                   <td>{organization.city}</td>
                   <td>{organization.state}</td>
-                  <td><Link to={`/organizations/${index+1}`}>View Organization</Link></td>
-                </tr> ) : "Loading"}
+                  <td><Link to={`/organizations/${organization.id}`}>View Organization</Link></td>
+                </tr> ) : <div className="loading"><div className="loader">Creating your wallet...</div></div>}
               </tbody>
             </table>
           </div>
@@ -44,7 +45,7 @@ class OrganizationsPage extends React.Component{
 }
 
 const mapStateToProps = (state, ownProps) => {
-  // debugger
+
   if (state.organizations.items.length > 0) {
     return {
       organizations: state.organizations
