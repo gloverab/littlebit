@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import {bindActionCreators} from 'redux'
-import OrganizationForm from './OrganizationForm'
 import { Link } from 'react-router'
+import OrganizationTd from './OrganizationTd'
 import * as organizationActions from '../../actions/organizationActions'
 import * as sessionActions from '../../actions/authActions'
 
@@ -11,8 +11,16 @@ class OrganizationsPage extends React.Component{
     super(props)
   }
 
-  render() {
+  upvoteOrg(organization) {
+    debugger
+    if (!organization.upvotes) {
+      organization.upvotes = 0
+    } else {
+      organization.upvotes =+ 1
+    }
+  }
 
+  render() {
     return(
 
       <div className="container">
@@ -29,12 +37,11 @@ class OrganizationsPage extends React.Component{
               </thead>
 
               <tbody>
-                {this.props.organizations ? this.props.organizations.items.map((organization, index) => <tr key={organization.id}>
-                  <td>{organization.name}</td>
-                  <td>{organization.city}</td>
-                  <td>{organization.state}</td>
-                  <td><Link to={`/organizations/${organization.id}`}>View Organization</Link></td>
-                </tr> ) : <div className="loading"><div className="loader">Creating your wallet...</div></div>}
+                {
+                  this.props.organizations ? this.props.organizations.items.map((organization) =>
+                  <OrganizationTd organization={organization} handleUpvote={this.upvoteOrg.bind(this)} /> ) :
+                    <div className="loading"><div className="loader">Creating your wallet...</div></div>
+                }
               </tbody>
             </table>
           </div>
@@ -45,7 +52,6 @@ class OrganizationsPage extends React.Component{
 }
 
 const mapStateToProps = (state, ownProps) => {
-
   if (state.organizations.items.length > 0) {
     return {
       organizations: state.organizations

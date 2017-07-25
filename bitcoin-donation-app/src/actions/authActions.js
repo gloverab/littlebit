@@ -53,7 +53,6 @@ export function registerUser({ email, firstName, lastName, password, password_co
       sessionStorage.setItem("jwt", response.data.jwt)
       dispatch(organizationActions.fetchOrganizations())
     }).then(response => {
-      debugger
       dispatch(loginSuccess())
     }).then(response => {
       dispatch(setCurrentUser())

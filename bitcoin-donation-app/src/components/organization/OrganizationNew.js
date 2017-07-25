@@ -32,6 +32,7 @@ class OrganizationNew extends React.Component {
 
             <div className="col-sm-7">
               <h3 className="text-right bottom-30">Organization Information:</h3>
+
               <OrganizationForm handleSubmit={this.handleSubmit.bind(this)} />
             </div>
           </div>
