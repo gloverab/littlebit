@@ -8,6 +8,10 @@ const apiUrl = "http://localhost:3001/api/organizations"
 // TODO: This is a test API address for quicker development. Real key will eventually be held by Figaro in Rails
 const newWalletAddressUrl = "https://block.io/api/v2/get_new_address/?api_key=7fcc-6a0a-6ccd-5d15"
 
+
+
+
+
 export const fetchOrganizationsSuccess = (organizations) => {
   return{
     type: actionTypes.FETCH_ORGANIZATIONS_SUCCESS,
@@ -69,4 +73,13 @@ export const createOrganization = (organization) => {
         throw(error)
       })
   }
+}
+
+
+export const updateOrganization = (organization) => {
+  return organizationsApi.updateOrganization(organization)
+  .then(response => {
+    console.log(response)
+  })
+
 }

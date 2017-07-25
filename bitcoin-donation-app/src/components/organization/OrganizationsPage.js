@@ -11,15 +11,6 @@ class OrganizationsPage extends React.Component{
     super(props)
   }
 
-  upvoteOrg(organization) {
-    debugger
-    if (!organization.upvotes) {
-      organization.upvotes = 0
-    } else {
-      organization.upvotes =+ 1
-    }
-  }
-
   render() {
     return(
 
@@ -39,7 +30,7 @@ class OrganizationsPage extends React.Component{
               <tbody>
                 {
                   this.props.organizations ? this.props.organizations.items.map((organization) =>
-                  <OrganizationTd organization={organization} handleUpvote={this.upvoteOrg.bind(this)} /> ) :
+                  <OrganizationTd organization={organization} /> ) :
                     <div className="loading"><div className="loader">Creating your wallet...</div></div>
                 }
               </tbody>

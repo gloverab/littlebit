@@ -49,7 +49,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return{
+  return {
     createOrganization: organization => dispatch(organizationActions.createOrganization(organization))
   }
 }

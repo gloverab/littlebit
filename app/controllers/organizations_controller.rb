@@ -21,11 +21,20 @@ class OrganizationsController < ApplicationController
     json_response(@organization)
   end
 
+  def update
+    if @organization.update(organization_params)
+      json_response(@organization)
+    else
+      json_response({error: "you suck!"})
+    end
+
+  end
+
 
   private
 
   def organization_params
-    params.require(:organization).permit(:name, :ein, :firstName, :lastName, :email, :city, :state, :walletAddress)
+    params.require(:organization).permit(:name, :ein, :firstName, :lastName, :email, :city, :state, :walletAddress, :upvotes)
   end
 
   def set_organization

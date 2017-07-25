@@ -1,44 +1,38 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router'
-
-const supertest = "HELLO!"
+import {bindActionCreators} from 'redux'
+import * as organizationActions from '../../actions/organizationActions'
 
 class OrganizationTd extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      organization: this.props.organization,
-      upvotes: 0
-    }
-
     this.handleUpvote = this.handleUpvote.bind(this)
   }
 
 
-
-  // ADDED UPTICKER TO SATISFY A PROJECT REQUIREMENT
   handleUpvote() {
+    this.props.organization.upvotes += 1
     this.setState((prevState, props) => {
-      return {
-        upvotes: prevState.upvotes += 1
-      }
+      upvotes: props.organization.upvotes
     })
+    organizationActions.updateOrganization(this.props.organization)
   }
 
   render() {
     return (
-      <tr key={this.state.organization.id}>
-        <td>{this.state.organization.name}</td>
-        <td>{this.state.organization.city}</td>
-        <td>{this.state.organization.state}</td>
-        <td><Link to={`/organizations/${this.state.organization.id}`}>View Organization</Link></td>
-
-      // COMMENTING OUT FOR NOW, ADDED TO SATISFY REQUIREMENT
-        // <td><button onClick={this.handleUpvote}>upvote</button>{this.state.upvotes}</td>
+      <tr key={this.props.organization.id}>
+        <td>{this.props.organization.name}</td>
+        <td>{this.props.organization.city}</td>
+        <td>{this.props.organization.props}</td>
+        <td><Link to={`/organizations/${this.props.organization.id}`}>View Organization</Link></td>
+        <td><button onClick={this.handleUpvote}>upvote</button></td>
+        <td>{this.props.organization.upvotes}</td>
       </tr>
     )
   }
 }
+
 
 export default OrganizationTd
