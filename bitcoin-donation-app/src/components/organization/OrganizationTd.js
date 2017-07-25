@@ -13,6 +13,8 @@ class OrganizationTd extends React.Component {
     this.handleUpvote = this.handleUpvote.bind(this)
   }
 
+  // ADDED UPTICKER TO SATISFY A PROJECT REQUIREMENT
+
   handleUpvote() {
     this.setState((prevState, props) => {
       return {
@@ -28,7 +30,9 @@ class OrganizationTd extends React.Component {
         <td>{this.state.organization.city}</td>
         <td>{this.state.organization.state}</td>
         <td><Link to={`/organizations/${this.state.organization.id}`}>View Organization</Link></td>
-        <td><button onClick={this.handleUpvote}>upvote</button>{this.state.upvotes}</td>
+
+      // COMMENTING OUT FOR NOW, ADDED TO SATISFY REQUIREMENT
+        // <td><button onClick={this.handleUpvote}>upvote</button>{this.state.upvotes}</td>
       </tr>
     )
   }
