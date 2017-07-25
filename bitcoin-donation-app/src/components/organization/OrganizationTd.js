@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router'
 
+const supertest = "HELLO!"
+
 class OrganizationTd extends React.Component {
   constructor(props) {
     super(props)
@@ -13,8 +15,9 @@ class OrganizationTd extends React.Component {
     this.handleUpvote = this.handleUpvote.bind(this)
   }
 
-  // ADDED UPTICKER TO SATISFY A PROJECT REQUIREMENT
 
+
+  // ADDED UPTICKER TO SATISFY A PROJECT REQUIREMENT
   handleUpvote() {
     this.setState((prevState, props) => {
       return {
