@@ -25,7 +25,7 @@ class OrganizationTd extends React.Component {
       <tr key={this.props.organization.id}>
         <td>{this.props.organization.name}</td>
         <td>{this.props.organization.city}</td>
-        <td>{this.props.organization.props}</td>
+        <td>{this.props.organization.state}</td>
         <td><Link to={`/organizations/${this.props.organization.id}`}>View Organization</Link></td>
         <td><button onClick={this.handleUpvote}>upvote</button></td>
         <td>{this.props.organization.upvotes}</td>

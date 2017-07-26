@@ -9,11 +9,28 @@ import * as sessionActions from '../../actions/authActions'
 class OrganizationsPage extends React.Component{
   constructor(props) {
     super(props)
+
+    this.sortBy = this.sortBy.bind(this)
   }
+
+  sortBy(attribute,e) {
+    e.preventDefault()
+    this.setState((prevState, props) => {
+      this.props.organizations.items.sort(function (a,b) {
+        if (a[attribute] < b[attribute]) {
+          return -1
+        }
+        if (a[attribute] > b[attribute]) {
+          return 1
+        }
+        return 0
+      })
+    })
+  }
+
 
   render() {
     return(
-
       <div className="container">
         {this.props.isFetching ? <h2>Loading...</h2> : <h2></h2>}
         <h1>Organizations</h1>
@@ -22,9 +39,12 @@ class OrganizationsPage extends React.Component{
           <div className="col-sm-12">
             <table className="table table-hover">
               <thead>
-                <th>Organization Names</th>
-                <th>City</th>
-                <th>State</th>
+                <th><a href="#" onClick={(e) => this.sortBy('name',e)}>Organization Names</a></th>
+                <th><a href="#" onClick={(e) => this.sortBy('city',e)}>City</a></th>
+                <th><a href="#" onClick={(e) => this.sortBy('state',e)}>State</a></th>
+                <th />
+                <th />
+                <th><a href="#" onClick={(e) => this.sortBy('upvotes',e)}>Upvotes</a></th>
               </thead>
 
               <tbody>
