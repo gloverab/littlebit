@@ -9,9 +9,12 @@ import * as sessionActions from '../../actions/authActions'
 class OrganizationsPage extends React.Component{
   constructor(props) {
     super(props)
+
+    this.sortBy = this.sortBy.bind(this)
   }
 
   sortBy(attribute,e) {
+    
     e.preventDefault()
     this.setState((prevState, props) => {
       this.props.organizations.items.sort(function (a,b) {
@@ -37,15 +40,15 @@ class OrganizationsPage extends React.Component{
           <div className="col-sm-12">
             <table className="table table-hover">
               <thead>
-                <th onClick={(e) => this.sortBy("name",e)}>Organization Names</th>
-                <th>City</th>
-                <th>State</th>
+                <th><a href="#" onClick={(e) => this.sortBy('name',e)}>Organization Names</a></th>
+                <th><a href="#" onClick={(e) => this.sortBy('city',e)}>City</a></th>
+                <th><a href="#" onClick={(e) => this.sortBy('state',e)}>State</a></th>
               </thead>
 
               <tbody>
                 {
                   this.props.organizations ? this.props.organizations.items.map((organization) =>
-                  <OrganizationTd organization={organization} handleUpvote={this.upvoteOrg.bind(this)} /> ) :
+                  <OrganizationTd organization={organization} /> ) :
                     <div className="loading"><div className="loader">Creating your wallet...</div></div>
                 }
               </tbody>
