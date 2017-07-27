@@ -11,13 +11,19 @@ class OrganizationsPage extends React.Component{
     super(props)
   }
 
-  upvoteOrg(organization) {
-    debugger
-    if (!organization.upvotes) {
-      organization.upvotes = 0
-    } else {
-      organization.upvotes =+ 1
-    }
+  sortBy(attribute,e) {
+    e.preventDefault()
+    this.setState((prevState, props) => {
+      this.props.organizations.items.sort(function (a,b) {
+        if (a[attribute] < b[attribute]) {
+          return -1
+        }
+        if (a[attribute] > b[attribute]) {
+          return 1
+        }
+        return 0
+      })
+    })
   }
 
   render() {
@@ -31,7 +37,7 @@ class OrganizationsPage extends React.Component{
           <div className="col-sm-12">
             <table className="table table-hover">
               <thead>
-                <th>Organization Names</th>
+                <th onClick={(e) => this.sortBy("name",e)}>Organization Names</th>
                 <th>City</th>
                 <th>State</th>
               </thead>
